@@ -1,0 +1,10 @@
+{
+  "key.categories.licesidcopy": "Lices ID Copy",
+  "key.licesidcopy.copy_item_id": "Copy Item ID",
+  
+  "licesidcopy.configuration.title": "Lice's ID Copy Settings",
+  "licesidcopy.configuration.section.licesidcopy.common.toml": "Lice's ID Copy Settings",
+  "licesidcopy.configuration.section.licesidcopy.common.toml.title": "Lice's ID Copy Settings",
+
+  "licesidcopy.message.id_copied": "✔ ID Copied: "
+}
