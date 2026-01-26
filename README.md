@@ -1,4 +1,4 @@
-# Item ID Copy
+# Lice's ID Copy
 
 Um mod simples e prático para Minecraft que permite copiar facilmente o ID de qualquer item diretamente do seu inventário ou do JEI.
 
@@ -22,7 +22,7 @@ Lice's ID Copy foi desenvolvido para facilitar a vida de modders e builders que 
 
 Exemplo de ID copiado: `minecraft:diamond_pickaxe` ou `modname:custom_item`
 
-(https://cdn.modrinth.com/data/cached_images/0129ed968082dec729376a63aae0b1d38ea059f4.gif)
+![Demonstração do mod](https://cdn.modrinth.com/data/cached_images/0129ed968082dec729376a63aae0b1d38ea059f4.gif)
 
 ## Autor
 
