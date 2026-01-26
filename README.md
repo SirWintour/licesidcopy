@@ -22,20 +22,7 @@ Lice's ID Copy foi desenvolvido para facilitar a vida de modders e builders que 
 
 Exemplo de ID copiado: `minecraft:diamond_pickaxe` ou `modname:custom_item`
 
-## Como Funciona
-
-O mod utiliza dois mecanismos para capturar o ID dos itens:
-
-### No Inventário
-O mod escuta o evento de renderização de tooltip do Minecraft. Quando um item está sendo renderizado (tooltip visível), o mod captura automaticamente o ItemStack e armazena a referência. Ao pressionar Ctrl+C, o ID é extraído do ItemStack através da API de registro do Minecraft.
-
-### No JEI
-O mod utiliza o evento `RenderTooltipEvent.Pre` do NeoForge para capturar o ItemStack quando o tooltip está sendo renderizado. Como o JEI também renderiza tooltips de itens, o mesmo sistema funciona automaticamente. Adicionalmente, há um sistema de fallback que usa reflexão para buscar o item diretamente nos campos da interface do JEI, garantindo compatibilidade mesmo se o tooltip não estiver visível.
-
-## Instalação
-
-1. Coloque o arquivo .jar do mod na pasta `mods` do seu Minecraft
-2. Abra o Minecraft e pronto, o mod estará ativo
+(https://cdn.modrinth.com/data/cached_images/0129ed968082dec729376a63aae0b1d38ea059f4.gif)
 
 ## Autor
 
