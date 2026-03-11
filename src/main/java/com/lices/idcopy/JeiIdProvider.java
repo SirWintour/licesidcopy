@@ -16,18 +16,24 @@ public class JeiIdProvider {
                 return null;
             }
 
-            Object overlay = invokeMethod(runtime, "getIngredientListOverlay");
-            if (overlay == null) {
-                LicesIDCopy.LOGGER.debug("Overlay não disponível");
-                return null;
-            }
+            // Try each of the 3 types of overlays.
+            String[] methods = {"getIngredientListOverlay", "getBookmarkOverlay", "getRecipesGui"};
+            for (String method : methods) {
+                Object overlay = invokeMethod(runtime, method);
+                if (overlay == null) {
+                    LicesIDCopy.LOGGER.debug("Overlay {} não disponível", method);
+                    continue;
+                }
 
-            Object hoveredIngredient = getHoveredIngredientFromOverlay(overlay);
+                Object hoveredIngredient = getHoveredIngredientFromOverlay(overlay);
 
-            if (hoveredIngredient != null) {
-                LicesIDCopy.LOGGER.debug("Ingrediente hovereado: {}", hoveredIngredient.getClass().getName());
-                return extractIdFromTypedIngredient(hoveredIngredient);
+                if (hoveredIngredient != null) {
+                    LicesIDCopy.LOGGER.debug("Ingrediente hovereado: {}", hoveredIngredient.getClass().getName());
+                    return extractIdFromTypedIngredient(hoveredIngredient);
+                }
             }
+            // No results, so just exit.
+            return null;
 
         } catch (Exception e) {
             LicesIDCopy.LOGGER.debug("Erro ao acessar JEI overlay", e);
