@@ -136,6 +136,10 @@ public class JeiIdProvider {
                 return extractIdFromFluidStack(ingredient);
             }
 
+            if (className.contains("ChemicalStack")) {
+                return extractIdFromChemicalStack(ingredient);
+            }
+
             if (ingredient instanceof ItemStack itemStack && !itemStack.isEmpty()) {
                 return getItemId(itemStack);
             }
@@ -202,6 +206,64 @@ public class JeiIdProvider {
 
         } catch (Exception e) {
             LicesIDCopy.LOGGER.error("Erro ao extrair Fluid", e);
+        }
+
+        return null;
+    }
+
+    private static String extractIdFromChemicalStack(Object chemicalStack) {
+        try {
+            LicesIDCopy.LOGGER.debug("Extraindo ChemicalStack: {}", chemicalStack);
+
+            Object chemical = invokeMethod(chemicalStack, "getChemical");
+
+            if (chemical == null) {
+                LicesIDCopy.LOGGER.warn("getChemical() retornou null");
+                return null;
+            }
+
+            LicesIDCopy.LOGGER.debug("Chemical obtido: {}", chemical.getClass().getName());
+
+            return extractIdFromChemical(chemical);
+
+        } catch (Exception e) {
+            LicesIDCopy.LOGGER.error("Erro ao extrair ChemicalStack", e);
+        }
+
+        return null;
+    }
+
+    private static String extractIdFromChemical(Object chemical) {
+        try {
+            String className = chemical.getClass().getName();
+
+            if (className.contains("Holder")) {
+                LicesIDCopy.LOGGER.debug("Chemical é Holder direto");
+                return extractIdFromHolder(chemical);
+            }
+
+            Field holderField = findField(chemical.getClass(), "builtInRegistryHolder");
+            if (holderField != null) {
+                holderField.setAccessible(true);
+                Object holder = holderField.get(chemical);
+
+                if (holder != null) {
+                    LicesIDCopy.LOGGER.debug("Holder obtido do campo builtInRegistryHolder");
+                    return extractIdFromHolder(holder);
+                } else {
+                    LicesIDCopy.LOGGER.warn("builtInRegistryHolder é null");
+                }
+            } else {
+                LicesIDCopy.LOGGER.warn("Campo builtInRegistryHolder não encontrado em {}", className);
+
+                LicesIDCopy.LOGGER.debug("Campos disponíveis em Fluid:");
+                for (Field f : chemical.getClass().getDeclaredFields()) {
+                    LicesIDCopy.LOGGER.debug("  - {}", f.getName());
+                }
+            }
+
+        } catch (Exception e) {
+            LicesIDCopy.LOGGER.error("Erro ao extrair Chemical", e);
         }
 
         return null;
