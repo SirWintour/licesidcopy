@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderTooltipEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,9 +53,9 @@ class ItemIdCopyHandler {
     private static final long MESSAGE_DURATION = 3000;
 
     @SubscribeEvent
-    static void onRenderTooltip(RenderTooltipEvent.Pre event) {
+    static void onRenderTooltip(ItemTooltipEvent event) {
         ItemStack itemStack = event.getItemStack();
-        if (itemStack != null && !itemStack.isEmpty()) {
+        if (!itemStack.isEmpty()) {
             lastHoveredItem = itemStack;
             lastTooltipTime = System.currentTimeMillis();
         }
